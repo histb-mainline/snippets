@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HiCMD>
+
+<!--可以有多个FirstLevel对，name_en/name_zh分别对应界面上节点树上的第一层节点的英文和中文名称，visable表示该节点是否在工具可见-->
+  <FirstLevel name_en="CUSTOM" name_zh="CUSTOM" visable="true">
+	 <!--每个FirstLevel对可以包含多个SecondLevel对，同时支持普通模式脚本和一键多发脚本，判断条件为变量batch-->
+	<SecondLevel name_en="CUSTOM" name_zh="CUSTOM" visable="true" batch="true">
+      <group id="5" name_en="QFHD 2D Setting" name_zh="" visable="true" type=""> 
+        <cmd name_en="set" cmd="" delay="10"/>
+        <param name_en="CUSTOM"
+               type="list"
+               range="{0x00,0x00,0x00,0x00,0x00,0x00,0x00};"/>
+       </group>
+    </SecondLevel>
+  </FirstLevel>
+	
+<!--可以有多个FirstLevel对，name_en/name_zh分别对应界面上节点树上的第一层节点的英文和中文名称，visable表示该节点是否在工具可见-->
+  <FirstLevel name_en="INX" name_zh="INX" visable="true">
+	 <!--每个FirstLevel对可以包含多个SecondLevel对，同时支持普通模式脚本和一键多发脚本，判断条件为变量batch-->
+	<SecondLevel name_en="Blanking" name_zh="空白模式使能选择" visable="true" batch="false">
+	<!--每个SecondLevel对可以包含多个group对,id对应i2c写命令中D0的0-3bit-->
+        <group id="3" name_en="Blanking Enable/Disable" name_zh="空白使能/不使能" visable="true">
+		<!--每个group对可以包含多个cmd，多个param，cmd子节点的cmd属性对相应i2c写命令中的D1,delay属性定义该命令执行后需要等待的时间-->
+           <cmd name_en="set" cmd="0x03" delay="10" />
+		<!--type类型定义该参数的类型，包括int（单行文本框），string（带滚动条的多行文本框），list（下拉菜单），bool（复选框）-->
+        <!--range属性定义该参数取值范围，对于连续范围以：最小值:最大值的格式表示，一般int型的数据以这种方式定义。-->
+        <!--如果是list类型，则以：displayname1:value1;displayname2:value2-->
+        <!--property属性定义了该参数是哪条命令的输入参数（i）或者返回值（r），如果是r，则需要有return属性定义返回值的从7个字节第几个字节开始-->
+        <!--descript_en/descript_zh定义了当鼠标停在该参数上时，工具显示的该字段的中英文说明-->
+           <param name_en="Enable/Disable select"
+                  type="list"
+                  range="Enable:0x01;Disable:0x00"               
+                  property="1:i"
+                  descript_en="enable or disable select"
+                  descript_zh="使能选择" />
+       </group>
+    </SecondLevel>
+    <SecondLevel name_en="MEMC Level" name_zh="MEMC 水平设置" visable="true" batch="false">
+        <group id="3" name_en="Set MEMC Level" name_zh="设置MEMC水平" visable="true">
+           <cmd name_en="set" cmd="0x02" delay="10" />
+           <param name_en="Level select"
+                  type="list"
+                  range="Off:0x00;Weak:0x01;Normal:0x02;Strong:0x03;User definition:0x0A"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="Judder Level"
+                  type="list"
+                  range="0x00:0x00;0x10:0x10;0x20:0x20;0x30:0x30;0x40:0x40;0x50:0x50;0x60:0x60;0x70:0x70;0x80:0x80;0x90:0x90;0xA0:0xA0;0xB0:0xB0;0xC0:0xC0;0xD0:0xD0;0xE0:0xE0;0xF0:0xF0"               
+                  property="1:i"
+                  descript_en="user definition"
+                  descript_zh="用户自定义抖动水平" />
+       </group>
+    </SecondLevel>
+    <SecondLevel name_en="MEMC Demo" name_zh="MEMC Demo 设置" visable="true" batch="false">
+        <group id="5" name_en="MEMC Demo on" name_zh="MEMC Demo 开" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="Select setting"
+                  type="list"
+                  range="L_memc,R_frame:0x0001;L_frame,R_memc:0x0101;T_memc,B_frame:0x0002;T_frame,B_memc:0x0102"               
+                  property="1:i"
+                  descript_en="select"
+                  descript_zh="设定选择" />
+            <param name_en="Fixed param"
+                  type="list"
+                  range="0x02|0xFF|0x00:0x00FF02"               
+                  property="1:i"
+                  descript_en="fixed param"
+                  descript_zh="参数" />      
+       </group>
+       <group id="5" name_en="MEMC Demo split line width" name_zh="memc demo行宽" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="Fixed param"
+                  type="list"
+                  range="0x01:0x01"               
+                  property="1:i"
+                  descript_en="fixed param"
+                  descript_zh="参数" />
+            <param name_en="Fixed param"
+                  type="list"
+                  range="0x00:0x00"               
+                  property="1:i"
+                  descript_en="fixed param"
+                  descript_zh="参数" />
+            <param name_en="Select pixel width"
+                  type="list"
+                  range="0pix:0x00;1pix:0x01;2pix:0x02;3pix:0x03;4pix:0x04;5pix:0x05;6pix:0x06;7pix:0x07;8pix:0x08;9pix:0x09;10pix:0x0A;11pix:0x0B;12pix:0x0C;13pix:0x0D;14pix:0x0E;15pix:0x0F"               
+                  property="1:i"
+                  descript_en="select"
+                  descript_zh="可选参数参数" />      
+       </group>
+       <group id="5" name_en="MEMC Demo split line color" name_zh="黑白选择" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="Fixed param"
+                  type="list"
+                  range="0x01|0x00|0x01:0x010001"               
+                  property="1:i"
+                  descript_en="fixed param"
+                  descript_zh="参数" />
+            <param name_en="BLACK/WHITE Select"
+                  type="list"
+                  range="Black:0x00;White:0xFF"               
+                  property="1:i"
+                  descript_en="黑白选择"
+                  descript_zh="参数" />      
+       </group>
+       <group id="5" name_en="MEMC Demo off" name_zh="MEMC Demo 关" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="Fixed param"
+                  type="list"
+                  range="0x00|0x00|0x02:0x020000"               
+                  property="1:i"
+                  descript_en="fixed param"
+                  descript_zh="参数" />
+            <param name_en="Fixed param"
+                  type="list"
+                  range="0xFF|0x00:0xFF"               
+                  property="1:i"
+                  descript_en="fixed param"
+                  descript_zh="参数" />
+       </group>
+    </SecondLevel>
+    <SecondLevel name_en="OSD Protection" name_zh="OSD 保护设置" visable="true" batch="false">
+        <group id="3" name_en="D1=0x05" name_zh="命令" visable="true">
+           <cmd name_en="set" cmd="0x05" delay="10" />
+           <param name_en="D2"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="D3"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="D4"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="D5"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="D6"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />                  
+       </group>
+       <group id="3" name_en="D1=0x06" name_zh="命令" visable="true">
+           <cmd name_en="set" cmd="0x06" delay="10" />
+           <param name_en="D2"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="D3"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="D4"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="D5"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="D6"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />                  
+       </group>
+    </SecondLevel>
+    
+    <SecondLevel name_en="Mute Mode Select" name_zh="mute模式选择" visable="true" batch="false">
+        <group id="13" name_en="Mute Mode Select" name_zh="mute 模式选择" visable="true">
+           <cmd name_en="set" cmd="0x0D" delay="10" />
+           <param name_en="Mute Mode Select"
+                  type="list"
+                  range="mute_only_starting:0x01;disable_mute:0x02;general_mute:0x03"               
+                  property="1:i"
+                  descript_en="mote mode select"
+                  descript_zh="mute模式选择" />
+       </group>
+    </SecondLevel>
+    <SecondLevel name_en="ELCS ON/OFF" name_zh="ELCSS 开/关" visable="true" batch="false">
+        <group id="13" name_en="ELCS ON/OFF select" name_zh="ELCS 开/关选择" visable="true">
+           <cmd name_en="set" cmd="0x5E" delay="10" />
+           <param name_en="ELCS ON/OFF"
+                  type="list"
+                  range="OFF:0x00;ON:0x01"               
+                  property="1:i"
+                  descript_en="ELCS ON/OFF"
+                  descript_zh="ELCS 开/关选择" />
+       </group>
+    </SecondLevel>
+	<!--以下是一键多发脚本，可通过勾选custom I2C进入自定义模式，每个range中的每组数组数据要求有相同的列数-->
+    <SecondLevel name_en="QFHD 2D" name_zh="QFHD 2D" visable="true" batch="true">
+      <group id="5" name_en="QFHD 2D Setting" name_zh="" visable="true" type=""> 
+        <cmd name_en="set" cmd="" delay="10"/>
+        <param name_en="QFHD 2D @ 24/30Hz, Graphic Mode"
+               type="list"
+               range="{0x80,0x01,0x02,0x00,0x00,0x55,0x00};
+					  {0x80,0x02,0x00,0x00,0x02,0x01,0x03};
+					  {0x61,0x06,0x00,0x00,0x00,0x00,0x00};
+					  {0xc1,0x05,0x0f,0x00,0x08,0x70,0x00};
+					  {0x13,0x01,0xf0,0x00,0x00,0x00,0x00}"/>
+		
+		<param name_en="QFHD 2D @ 24/30Hz, Video Mode"
+               type="list"
+               range="{0x80,0x01,0x02,0x00,0x00,0x55,0x00};
+					  {0x80,0x02,0x00,0x00,0x02,0x01,0x03};
+					  {0x61,0x06,0x00,0x00,0x00,0x00,0x00};
+					  {0xc1,0x05,0x0f,0x00,0x08,0x70,0x00};
+					  {0x13,0x01,0x00,0x00,0x00,0x00,0x00}"/>
+		
+		<param name_en="QFHD 2D @ 50/60Hz, Graphic Mode"
+               type="list"
+               range="{0x20,0x01,0x02,0x00,0x40,0xff,0x00};
+					  {0x80,0x02,0x00,0x40,0x62,0x51,0x73};
+					  {0x61,0x06,0x00,0x00,0x00,0x00,0x00};
+					  {0xc1,0x05,0x0f,0x00,0x08,0x70,0x00};
+					  {0x13,0x01,0xf0,0x00,0x00,0x00,0x00}"/>
+
+		<param name_en="QFHD 2D @ 50/60Hz, Graphic Mode 2 division"
+               type="list"
+               range="{0x20,0x01,0x12,0x00,0x40,0xff,0x00};
+					  {0xc0,0x02,0x00,0x20,0x31,0x64,0x75};
+					  {0x61,0x06,0x00,0x00,0x00,0x00,0x00};
+					  {0xc1,0x05,0x0f,0x00,0x08,0x70,0x00};
+					  {0x13,0x01,0xf0,0x00,0x00,0x00,0x00}"/>			  
+													  
+		<param name_en="QFHD 2D @ 50/60Hz, Video Mode"
+               type="list"
+               range="{0x20,0x01,0x02,0x00,0x40,0xff,0x00};
+					  {0x80,0x02,0x00,0x40,0x62,0x51,0x73};
+					  {0x61,0x06,0x00,0x00,0x00,0x00,0x00};
+					  {0xc1,0x05,0x0f,0x00,0x08,0x70,0x00};
+					  {0x13,0x01,0x00,0x00,0x00,0x00,0x00}"/>
+													  
+        <param name_en="QFHD 2D @ 50/60Hz, Video Mode 2 division"
+               type="list"
+               range="{0x20,0x01,0x12,0x00,0x40,0xff,0x00};
+					  {0xc0,0x02,0x00,0x20,0x31,0x64,0x75};
+					  {0x61,0x06,0x00,0x00,0x00,0x00,0x00};
+					  {0xc1,0x05,0x0f,0x00,0x08,0x70,0x00};
+					  {0x13,0x01,0x00,0x00,0x00,0x00,0x00}"/>
+													  
+      </group>
+    </SecondLevel>
+  </FirstLevel>
+</HiCMD>
